@@ -56,4 +56,15 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * Destroy an authenticated session.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function view(Request $request)
+    {
+        return Inertia::render('PersonalProfile');
+    }
 }

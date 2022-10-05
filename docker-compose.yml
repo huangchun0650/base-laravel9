@@ -80,6 +80,14 @@ services:
             test: ["CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health"]
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        image: 'phpmyadmin:latest'
+        ports:
+            - 8080:80
+        networks:
+            - sail
+        environment:
+            - PMA_ARBITRARY=1
 networks:
     sail:
         driver: bridge

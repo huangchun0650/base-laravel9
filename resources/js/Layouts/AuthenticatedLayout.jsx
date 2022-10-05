@@ -9,10 +9,10 @@ export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-indigo-700">
             <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+                    <div className="w-full flex py-6 justify-between items-center navbar">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
@@ -26,8 +26,9 @@ export default function Authenticated({ auth, header, children }) {
                                 </NavLink>
                             </div>
                         </div>
-
+                        
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <img src={auth.user.user_avatar_path} alt={auth.user.name} width="36" height="36"></img>
                             <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -55,6 +56,9 @@ export default function Authenticated({ auth, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                        <Dropdown.Link href={route('personal-profile')} method="get" as="button">
+                                            個人資料設定
+                                        </Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
@@ -90,19 +94,23 @@ export default function Authenticated({ auth, header, children }) {
                 </div>
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{auth.user.name}</div>
+                            <img src={auth.user.user_avatar_path} alt={auth.user.name} width="48" height="48"></img>
+                            <div className="font-medium font-semibold text-base text-gray-800">{auth.user.name}</div>
                             <div className="font-medium text-sm text-gray-500">{auth.user.email}</div>
                         </div>
 
+                        <div className="pt-2 pb-3 space-y-1">
+                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                Dashboard
+                            </ResponsiveNavLink>
+                        </div>
+
                         <div className="mt-3 space-y-1">
+                            <ResponsiveNavLink method="get" href={route('personal-profile')} as="button">
+                                個人資料設定
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>
