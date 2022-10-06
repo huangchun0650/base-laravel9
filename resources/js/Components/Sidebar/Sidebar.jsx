@@ -24,9 +24,9 @@ import logo from "../../assets/img/reactlogo.png";
 
 function Sidebar({ color, image, routes }) {
   const location = useLocation();
-  // const activeRoute = (routeName) => {
-  //   return location.pathname.indexOf(routeName) > -1 ? "active" : "";
-  // };
+  const activeRoute = (routeName) => {
+    return location.pathname.indexOf(routeName) > -1 ? "active" : "";
+  };
   return (
     <div className="sidebar" data-image={image} data-color={color}>
       <div
@@ -42,7 +42,7 @@ function Sidebar({ color, image, routes }) {
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
-              <img src="../assets/img/reactlogo.png" alt="..." />
+              <img src={ logo } alt="..." />
             </div>
           </a>
           <a className="simple-text" href="http://www.creative-tim.com">
@@ -52,28 +52,23 @@ function Sidebar({ color, image, routes }) {
         <Nav>
           {routes.map((prop, key) => {
             if (!prop.redirect)
-              console.log(prop)
               return (
                 <li
                   className={
                     prop.upgrade
                       ? "active active-pro"
-                      : ""
+                      : activeRoute(prop.path)
                   }
                   key={key}
                 >
-                  <ResponsiveNavLink method="get" href={ prop.path } as="button">
-                    <i className={prop.icon} />
-                    <p>{prop.name}</p>
-                  </ResponsiveNavLink>
-                  {/* <NavLink
-                    to={prop.layout + prop.path}
+                  <NavLink
+                    to={prop.path}
                     className="nav-link"
                     activeClassName="active"
                   >
                     <i className={prop.icon} />
                     <p>{prop.name}</p>
-                  </NavLink> */}
+                  </NavLink>
                 </li>
               );
             return null;

@@ -14,6 +14,7 @@
         @viteReactRefresh
         @vite('resources/js/app.jsx')
         @inertiaHead
+        <!-- <script type="module" src="index.js"></script> -->
     </head>
     <body class="font-sans antialiased">
         @inertia

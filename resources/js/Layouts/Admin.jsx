@@ -16,7 +16,7 @@
 
 */
 import React, { Component } from "react";
-import { useLocation, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 import AdminNavbar from "@/Components/Navbars/AdminNavbar";
 import Footer from "@/Components/Footer/Footer";
 import Sidebar from "@/Components/Sidebar/Sidebar";
@@ -24,27 +24,25 @@ import FixedPlugin from "@/Components/FixedPlugin/FixedPlugin";
 import routes from "../routes.js";
 import sidebarImage from "../assets/img/sidebar-3.jpg";
 
-function Admin({ auth, header, children }) {
+function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
   const [color, setColor] = React.useState("black");
   const [hasImage, setHasImage] = React.useState(true);
-  // const location = useLocation();
+  const location = useLocation();
   const mainPanel = React.useRef(null);
-  // const getRoutes = (routes) => {
-  //   return routes.map((prop, key) => {
-  //     if (prop.layout === "/admin") {
-  //       return (
-  //         <Route
-  //           path={prop.layout + prop.path}
-  //           render={(props) => <prop.component {...props} />}
-  //           key={key}
-  //         />
-  //       );
-  //     } else {
-  //       return null;
-  //     }
-  //   });
-  // };
+
+  const getRoutes = (routes) => {
+    return routes.map((prop, key) => {
+      console.log(prop)
+      return (
+        <Route
+          path={prop.path}
+          render={(props) => <prop.component {...props} />}
+          key={key}
+        />
+      );
+    });
+  };
   // React.useEffect(() => {
   //   document.documentElement.scrollTop = 0;
   //   document.scrollingElement.scrollTop = 0;
@@ -60,29 +58,24 @@ function Admin({ auth, header, children }) {
   // }, [location]);
   return (
     <>
-      {/* <div className="wrapper">
+      <div className="wrapper">
         <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
         <div className="main-panel" ref={mainPanel}>
-          <AdminNavbar />
+          <AdminNavbar/>
           <div className="content">
             <Switch>{getRoutes(routes)}</Switch>
           </div>
           <Footer />
         </div>
-      </div> */}
-      <div className="wrapper">
-        <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
-        {/* <AdminNavbar user={auth.user} />
-        <Footer /> */}
       </div>
-      {/* <FixedPlugin
+      <FixedPlugin
         hasImage={hasImage}
         setHasImage={() => setHasImage(!hasImage)}
         color={color}
         setColor={(color) => setColor(color)}
         image={image}
         setImage={(image) => setImage(image)}
-      /> */}
+      />
     </>
   );
 }
