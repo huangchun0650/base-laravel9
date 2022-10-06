@@ -12,12 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function ResponsiveAppBar({ auth, header, children }) {
-  const pages = ['阿胖1', '阿胖2', '阿胖3'];
+  const pages = ['1', '2', '3'];
   const settings = ['個人資料', '帳號設定', 'Dashboard', '登出'];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -52,9 +51,19 @@ export default function ResponsiveAppBar({ auth, header, children }) {
     <AppBar position="static" color="primary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+            <IconButton
+              size="large" cxd
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
           {/* <div className="shrink-0 flex items-center"> */}
             {/* <ApplicationLogo className="block h-9 w-auto text-gray-500" /> */}
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
             <Typography
               variant="h6"
               noWrap
@@ -70,7 +79,6 @@ export default function ResponsiveAppBar({ auth, header, children }) {
                 textDecoration: 'none',
               }}
             >
-              首頁
             </Typography>
           
 
@@ -164,11 +172,16 @@ export default function ResponsiveAppBar({ auth, header, children }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" href={route('personal-profile')}>{setting}</Typography>
+                <MenuItem key="personal-profile" onClick={handleCloseUserMenu}>
+                  <ResponsiveNavLink method="get" href={route('personal-profile')} as="button">
+                    個人資料設定
+                  </ResponsiveNavLink>
                 </MenuItem>
-              ))}
+                <MenuItem key="logout" onClick={handleCloseUserMenu}>
+                  <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                    Log Out
+                  </ResponsiveNavLink>
+                </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
