@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/position/{id}', function () {
+    dd(111);
+    return '阿乓';
+})->middleware(['auth', 'verified'])->name('positionData');

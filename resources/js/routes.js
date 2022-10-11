@@ -29,6 +29,7 @@ const dashboardRoutes = [
     name: "儀表板",
     icon: "nc-icon nc-chart-pie-35",
     component: Dashboard,
+    layout: 'admin'
   },
   {
     path: "/user",

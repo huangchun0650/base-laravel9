@@ -1,5 +1,6 @@
 import React from "react";
-
+import backImg from "../assets/img/photo-1431578500526-4d9613015464.jpeg";
+import { Inertia } from '@inertiajs/inertia'
 // react-bootstrap components
 import {
   Badge,
@@ -13,7 +14,12 @@ import {
   Col
 } from "react-bootstrap";
 
-function User() {
+const getPosition = (position) => {
+  return Inertia.get(`/position/${position}`)
+}
+
+function User(user) {
+  console.log(user)
   return (
     <>
       <Container fluid>
@@ -21,16 +27,27 @@ function User() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Edit Profile</Card.Title>
+                <Card.Title as="h4">使用者資料</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="2">
                       <Form.Group>
-                        <label>Company (disabled)</label>
+                        <label>公司別 (disabled)</label>
                         <Form.Control
-                          defaultValue="Creative Code Inc."
+                          defaultValue={user.companyCode}
+                          disabled
+                          placeholder="Company"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="3">
+                      <Form.Group>
+                        <label>職級</label>
+                        <Form.Control
+                          defaultValue={getPosition(user.position)}
                           disabled
                           placeholder="Company"
                           type="text"
@@ -39,9 +56,9 @@ function User() {
                     </Col>
                     <Col className="px-1" md="3">
                       <Form.Group>
-                        <label>Username</label>
+                        <label>名稱</label>
                         <Form.Control
-                          defaultValue="michael23"
+                          defaultValue={user.name}
                           placeholder="Username"
                           type="text"
                         ></Form.Control>
@@ -50,16 +67,16 @@ function User() {
                     <Col className="pl-1" md="4">
                       <Form.Group>
                         <label htmlFor="exampleInputEmail1">
-                          Email address
+                          Email
                         </label>
                         <Form.Control
-                          placeholder="Email"
+                          placeholder={user.email}
                           type="email"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
-                  <Row>
+                  {/* <Row>
                     <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>First Name</label>
@@ -80,23 +97,22 @@ function User() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row>
-                    <Col md="12">
+                    <Col className="pr-1" md="3">
                       <Form.Group>
-                        <label>Address</label>
+                        <label>國家</label>
                         <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
+                          defaultValue="Andrew"
+                          placeholder="Country"
                           type="text"
-                        ></Form.Control>
+                        >
+                        </Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="4">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
-                        <label>City</label>
+                        <label>城市</label>
                         <Form.Control
                           defaultValue="Mike"
                           placeholder="City"
@@ -104,22 +120,24 @@ function User() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="4">
+                    <Col className="pl-1" md="3">
                       <Form.Group>
-                        <label>Country</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Postal Code</label>
+                        <label>郵政編碼</label>
                         <Form.Control
                           placeholder="ZIP Code"
                           type="number"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Form.Group>
+                        <label>地址</label>
+                        <Form.Control
+                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                          placeholder="Home Address"
+                          type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -144,7 +162,7 @@ function User() {
                     type="submit"
                     variant="info"
                   >
-                    Update Profile
+                    更新設定
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
@@ -156,7 +174,7 @@ function User() {
               <div className="card-image">
                 <img
                   alt="..."
-                  src={require("assets/img/photo-1431578500526-4d9613015464.jpeg")}
+                  src={backImg}
                 ></img>
               </div>
               <Card.Body>
@@ -165,11 +183,11 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/faces/face-3.jpg")}
+                      src={user.user_avatar_path}
                     ></img>
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">{user.name}</h5>
                   </a>
-                  <p className="description">michael24</p>
+                  <p className="description">{user.email}</p>
                 </div>
                 <p className="description text-center">
                   "Lamborghini Mercy <br></br>
